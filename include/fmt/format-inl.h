@@ -40,8 +40,8 @@
 
 // Dummy implementations of strerror_r and strerror_s called if corresponding
 // system functions are not available.
-inline fmt::detail::null<> strerror_r(int, char*, ...) { return {}; }
-inline fmt::detail::null<> strerror_s(char*, size_t, ...) { return {}; }
+inline FMT_NAMESPACE_NAME::detail::null<> strerror_r(int, char*, ...) { return {}; }
+inline FMT_NAMESPACE_NAME::detail::null<> strerror_s(char*, std::size_t, ...) { return {}; }
 
 FMT_BEGIN_NAMESPACE
 namespace detail {
@@ -1360,7 +1360,7 @@ FMT_FUNC void detail::error_handler::on_error(const char* message) {
 }
 
 FMT_FUNC void report_system_error(int error_code,
-                                  fmt::string_view message) FMT_NOEXCEPT {
+                                  FMT_NAMESPACE_NAME::string_view message) FMT_NOEXCEPT {
   report_error(format_system_error, error_code, message);
 }
 

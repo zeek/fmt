@@ -2674,11 +2674,11 @@ FMT_CONSTEXPR basic_string_view<Char> compile_string_to_view(
 #define FMT_STRING_IMPL(s, ...)                                   \
   [] {                                                            \
     /* Use a macro-like name to avoid shadowing warnings. */      \
-    struct FMT_COMPILE_STRING : fmt::compile_string {             \
-      using char_type = fmt::remove_cvref_t<decltype(s[0])>;      \
+    struct FMT_COMPILE_STRING : FMT_NAMESPACE_NAME::compile_string {             \
+      using char_type = FMT_NAMESPACE_NAME::remove_cvref_t<decltype(s[0])>;      \
       FMT_MAYBE_UNUSED __VA_ARGS__ FMT_CONSTEXPR                  \
-      operator fmt::basic_string_view<char_type>() const {        \
-        return fmt::detail::compile_string_to_view<char_type>(s); \
+      operator FMT_NAMESPACE_NAME::basic_string_view<char_type>() const {        \
+        return FMT_NAMESPACE_NAME::detail::compile_string_to_view<char_type>(s); \
       }                                                           \
     };                                                            \
     return FMT_COMPILE_STRING();                                  \

@@ -31,7 +31,7 @@ std::basic_string<Char> vformat(
     basic_format_args<buffer_context<type_identity_t<Char>>> args) {
   basic_memory_buffer<Char> buffer;
   detail::vformat_to(loc, buffer, format_str, args);
-  return fmt::to_string(buffer);
+  return FMT_NAMESPACE_NAME::to_string(buffer);
 }
 }  // namespace detail
 

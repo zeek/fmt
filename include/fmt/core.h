@@ -177,6 +177,10 @@
 #  endif
 #endif
 
+#ifndef FMT_NAMESPACE_NAME
+#define FMT_NAMESPACE_NAME fmt
+#endif
+
 #ifndef FMT_BEGIN_NAMESPACE
 #  if FMT_HAS_FEATURE(cxx_inline_namespaces) || FMT_GCC_VERSION >= 404 || \
       FMT_MSC_VER >= 1900
@@ -192,7 +196,7 @@
       }
 #  endif
 #  define FMT_BEGIN_NAMESPACE \
-    namespace fmt {           \
+    namespace FMT_NAMESPACE_NAME {           \
     FMT_INLINE_NAMESPACE v6 {
 #endif
 
@@ -289,7 +293,7 @@ FMT_NORETURN FMT_API void assert_fail(const char* file, int line,
 #    define FMT_ASSERT(condition, message)                                    \
       ((condition) /* void() fails with -Winvalid-constexpr on clang 4.0.1 */ \
            ? (void)0                                                          \
-           : ::fmt::detail::assert_fail(__FILE__, __LINE__, (message)))
+           : ::FMT_NAMESPACE_NAME::detail::assert_fail(__FILE__, __LINE__, (message)))
 #  endif
 #endif
 
@@ -494,7 +498,7 @@ constexpr basic_string_view<typename S::char_type> to_string_view(const S& s) {
 
 namespace detail {
 void to_string_view(...);
-using fmt::v6::to_string_view;
+using FMT_NAMESPACE_NAME::v6::to_string_view;
 
 // Specifies whether S is a string type convertible to fmt::basic_string_view.
 // It should be a constexpr function but MSVC 2017 fails to compile it in
@@ -1567,9 +1571,9 @@ class dynamic_format_arg_store
         dynamic_args_.push<std::basic_string<char_type>>(arg.name).c_str();
     if (detail::const_check(need_copy<T>::value)) {
       emplace_arg(
-          fmt::arg(arg_name, dynamic_args_.push<stored_type<T>>(arg.value)));
+          FMT_NAMESPACE_NAME::arg(arg_name, dynamic_args_.push<stored_type<T>>(arg.value)));
     } else {
-      emplace_arg(fmt::arg(arg_name, arg.value));
+      emplace_arg(FMT_NAMESPACE_NAME::arg(arg_name, arg.value));
     }
   }
 

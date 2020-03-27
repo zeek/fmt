@@ -88,7 +88,7 @@ template <typename T> class is_like_std_string {
 };
 
 template <typename Char>
-struct is_like_std_string<fmt::basic_string_view<Char>> : std::true_type {};
+struct is_like_std_string<FMT_NAMESPACE_NAME::basic_string_view<Char>> : std::true_type {};
 
 template <typename... Ts> struct conditional_helper {};
 
@@ -191,7 +191,7 @@ template <typename T> struct is_tuple_like {
 };
 
 template <typename TupleT, typename Char>
-struct formatter<TupleT, Char, enable_if_t<fmt::is_tuple_like<TupleT>::value>> {
+struct formatter<TupleT, Char, enable_if_t<FMT_NAMESPACE_NAME::is_tuple_like<TupleT>::value>> {
  private:
   // C++11 generic lambda for format()
   template <typename FormatContext> struct format_each {
@@ -248,7 +248,7 @@ template <typename T, typename Char> struct is_range {
 
 template <typename RangeT, typename Char>
 struct formatter<RangeT, Char,
-                 enable_if_t<fmt::is_range<RangeT, Char>::value>> {
+                 enable_if_t<FMT_NAMESPACE_NAME::is_range<RangeT, Char>::value>> {
   formatting_range<Char> formatting;
 
   template <typename ParseContext>

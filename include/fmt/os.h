@@ -249,7 +249,7 @@ class buffered_file {
   FMT_API int(fileno)() const;
 
   void vprint(string_view format_str, format_args args) {
-    fmt::vprint(file_, format_str, args);
+    FMT_NAMESPACE_NAME::vprint(file_, format_str, args);
   }
 
   template <typename... Args>

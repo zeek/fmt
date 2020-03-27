@@ -539,7 +539,7 @@ inline std::basic_string<Char> vformat(
     basic_format_args<buffer_context<type_identity_t<Char>>> args) {
   basic_memory_buffer<Char> buf;
   detail::vformat_to(buf, ts, to_string_view(format_str), args);
-  return fmt::to_string(buf);
+  return FMT_NAMESPACE_NAME::to_string(buf);
 }
 
 /**

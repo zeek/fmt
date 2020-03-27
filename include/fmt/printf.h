@@ -242,7 +242,7 @@ class printf_arg_formatter : public detail::arg_formatter_base<Range> {
   printf_arg_formatter(iterator iter, format_specs& specs, context_type& ctx)
       : base(Range(iter), &specs, detail::locale_ref()), context_(ctx) {}
 
-  template <typename T, FMT_ENABLE_IF(fmt::detail::is_integral<T>::value)>
+  template <typename T, FMT_ENABLE_IF(FMT_NAMESPACE_NAME::detail::is_integral<T>::value)>
   iterator operator()(T value) {
     // MSVC2013 fails to compile separate overloads for bool and char_type so
     // use std::is_same instead.

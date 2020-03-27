@@ -74,7 +74,7 @@ FMT_CONSTEXPR To lossless_integral_conversion(const From from, int& ec) {
 
   if (F::is_signed && !T::is_signed) {
     // From may be negative, not allowed!
-    if (fmt::detail::is_negative(from)) {
+    if (FMT_NAMESPACE_NAME::detail::is_negative(from)) {
       ec = 1;
       return {};
     }
@@ -322,14 +322,14 @@ inline std::tm localtime(std::time_t time) {
     dispatcher(std::time_t t) : time_(t) {}
 
     bool run() {
-      using namespace fmt::detail;
+      using namespace FMT_NAMESPACE_NAME::detail;
       return handle(localtime_r(&time_, &tm_));
     }
 
     bool handle(std::tm* tm) { return tm != nullptr; }
 
     bool handle(detail::null<>) {
-      using namespace fmt::detail;
+      using namespace FMT_NAMESPACE_NAME::detail;
       return fallback(localtime_s(&tm_, &time_));
     }
 
@@ -337,7 +337,7 @@ inline std::tm localtime(std::time_t time) {
 
 #if !FMT_MSC_VER
     bool fallback(detail::null<>) {
-      using namespace fmt::detail;
+      using namespace FMT_NAMESPACE_NAME::detail;
       std::tm* tm = std::localtime(&time_);
       if (tm) tm_ = *tm;
       return tm != nullptr;
@@ -359,14 +359,14 @@ inline std::tm gmtime(std::time_t time) {
     dispatcher(std::time_t t) : time_(t) {}
 
     bool run() {
-      using namespace fmt::detail;
+      using namespace FMT_NAMESPACE_NAME::detail;
       return handle(gmtime_r(&time_, &tm_));
     }
 
     bool handle(std::tm* tm) { return tm != nullptr; }
 
     bool handle(detail::null<>) {
-      using namespace fmt::detail;
+      using namespace FMT_NAMESPACE_NAME::detail;
       return fallback(gmtime_s(&tm_, &time_));
     }
 
